@@ -42,24 +42,27 @@ class AddQuoteCommand extends Command {
           description: `Please supply a quote answer to add into the database.`,
         })
       );
-    const permRoles = [
-      '830700055539089457', // Admin
-      '830700055539089456', // Mods
-      '831001258806345728', // 76th Funeral Director (Zyla)
+    const roles = [
+      '821556056282103819', // 500's owner role
+      '808507839382552598', // Admin
+      // '808515071772459018', // Mod
+      '830270184479522857', // Zyla
     ];
     var i;
-    for (i = 0; i <= permRoles.length; i++) {
+    for (i = 0; i <= roles.length; i++) {
       if (
         message.member.roles.cache
           .map((x) => x.id)
-          .filter((x) => permRoles.includes(x)).length === 0
+          .filter((x) => roles.includes(x)).length === 0
       )
-        return message.channel.send(
-          new Discord.MessageEmbed().setDescription(
-            "You can't do that with the permissions you have."
-          )
+        return await message.channel.send(
+          new Discord.MessageEmbed({
+            color: 'RED',
+            description: "You can't do that with the permissions you have.",
+          })
         );
     }
+
     let data;
     let embed = false;
     try {

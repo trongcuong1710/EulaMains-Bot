@@ -13,26 +13,27 @@ class PollCommand extends Command {
   }
 
   async exec(message, args) {
-    const permRoles = [
-      '821556056282103819', // 500's owner role
-      '808507839382552598', // Admin
-      '808515071772459018', // Mod
-      '830270184479522857', // Zyla
-    ];
-    var i;
-    for (i = 0; i <= permRoles.length; i++) {
-      if (
-        message.member.roles.cache
-          .map((x) => x.id)
-          .filter((x) => permRoles.includes(x)).length === 0
-      )
-        return message.channel.send(
-          new MessageEmbed({
-            color: 'RED',
-            description: "You can't do that with the permissions you have.",
-          })
-        );
-    }
+    // const permRoles = [
+    //   '821556056282103819', // 500's owner role
+    //   '808507839382552598', // Admin
+    //   '808515071772459018', // Mod
+    //   '830270184479522857', // Zyla
+    // ];
+    // var i;
+    // for (i = 0; i <= permRoles.length; i++) {
+    //   if (
+    //     message.member.roles.cache
+    //       .map((x) => x.id)
+    //       .filter((x) => permRoles.includes(x)).length === 0
+    //   )
+    //     return message.channel.send(
+    //       new MessageEmbed({
+    //         color: 'RED',
+    //         description: "You can't do that with the permissions you have.",
+    //       })
+    //     );
+    // }
+
     const prefix = this.client.commandHandler.prefix;
     if (!args.question)
       return message.channel.send(
@@ -43,6 +44,8 @@ class PollCommand extends Command {
           } <question>\n      ^^^^^^^^^^\nquestion is a required argument that is missing.\`\`\``,
         })
       );
+
+    message.delete();
 
     message.channel
       .send(

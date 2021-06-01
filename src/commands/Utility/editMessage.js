@@ -7,6 +7,7 @@ class EditMessageCommand extends Command {
       aliases: ['editmessage', 'em'],
       ownerOnly: false,
       category: 'Utility',
+      userPermissions: 'MANAGE_MESSAGES',
       channel: 'guild',
       args: [
         {
@@ -27,25 +28,6 @@ class EditMessageCommand extends Command {
   }
 
   async exec(message, args) {
-    const permRoles = [
-      '830700055539089457', // Admin
-      '830700055539089456', // Mods
-      '831001258806345728', // 76th Funeral Director (Zyla)
-    ];
-    var i;
-    for (i = 0; i <= permRoles.length; i++) {
-      if (
-        message.member.roles.cache
-          .map((x) => x.id)
-          .filter((x) => permRoles.includes(x)).length === 0
-      )
-        return message.channel.send(
-          new Discord.MessageEmbed().setDescription(
-            "You can't do that with the permissions you have."
-          )
-        );
-    }
-
     if (!args.messageID)
       return message.channel.send(
         new Discord.MessageEmbed({

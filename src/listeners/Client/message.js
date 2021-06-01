@@ -17,7 +17,7 @@ class MessageListener extends Listener {
     });
 
     if (message.author.bot) return;
-    if (message.author.id != this.client.ownerID) return;
+    //if (message.author.id != this.client.ownerID) return;
 
     const modMails = await this.client.db.eulaModmail.find();
     if (!modMails) return;
