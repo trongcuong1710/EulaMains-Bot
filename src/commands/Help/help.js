@@ -26,7 +26,7 @@ class HelpCommand extends Command {
           color: 'BLUE',
           description: `You expected me to show a list of commands with ${
             prefix + this.id
-          }?\nWrong, you get my ko-fi page instead.\nhttps://ko-fi.com/zylasden.`,
+          }?\nWrong, you get my ko-fi page instead.\nhttps://ko-fi.com/zylasden`,
         })
       );
 
