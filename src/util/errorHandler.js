@@ -33,7 +33,6 @@ module.exports = class ErrorHandler {
         ],
       })
     );
-    await process.exit(0);
   }
   /**
    * Interactive error handling, user decides to report it to Zyla or not.
@@ -48,8 +47,8 @@ module.exports = class ErrorHandler {
       .send(
         new Discord.MessageEmbed({
           color: 'RED',
-          title: `I'm sorry, hilichurls are blocking my way through success!`,
-          description: `These hilichurls are stronk!\nPlease react with 📨 to report them to my dad!\n\n**You have 10 seconds to react.**`,
+          title: `I'm sorry, my uncle is on my way!`,
+          description: `My uncle is stronk!\nPlease react with 📨 to report them to Zyla!\n\n**You have 10 seconds to react.**`,
         })
       )
       .then(async (m) => {
@@ -66,7 +65,7 @@ module.exports = class ErrorHandler {
               .edit(
                 new Discord.MessageEmbed({
                   color: 'GREEN',
-                  description: `Thanks for your help, ${u}!\nI'm telling my dad to bonk bad hilichurls ASAP!`,
+                  description: `Thanks for your help, ${u}!\nI'm telling my dad to bonk my uncle ASAP!`,
                 })
               )
               .then(async () => {
@@ -81,7 +80,7 @@ module.exports = class ErrorHandler {
               new Discord.MessageEmbed({
                 color: 'RED',
                 title: `Timeout!`,
-                description: `Time's up, ${msg.author}!\nYou couldn't report the hilicurls in time...\nDon't worry though, I reported the issue to my dad myself!`,
+                description: `Time's up, ${msg.author}!\nYou couldn't report my uncle in time...\nDon't worry though, I reported the issue to my dad myself!`,
               })
             );
           }
