@@ -31,9 +31,8 @@ class CalculateCommand extends Command {
             'Please input a mathematical operation or conversion such as "1 km to m" (yes with quotes)',
         })
       );
-
-    message.channel
-      .send(
+    try {
+      message.channel.send(
         this.client.util.embed().addFields([
           {
             name: 'Input:',
@@ -44,13 +43,12 @@ class CalculateCommand extends Command {
             value: string(evaluate(args.input)),
           },
         ])
-      )
-      .catch(
-        async (e) =>
-          await message.channel.send(
-            new Discord.MessageEmbed({ color: 'RED', description: e.message })
-          )
       );
+    } catch (e) {
+      await message.channel.send(
+        new Discord.MessageEmbed({ color: 'RED', description: e.message })
+      );
+    }
   }
 }
 
