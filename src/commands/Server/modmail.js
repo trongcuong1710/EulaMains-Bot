@@ -66,6 +66,10 @@ class ModmailCommand extends Command {
                   allow: ['VIEW_CHANNEL', 'SEND_MESSAGES'],
                 },
                 {
+                  id: '808515071772459018', // Mods
+                  allow: ['VIEW_CHANNEL', 'SEND_MESSAGES'],
+                },
+                {
                   id: '808500851395395657', // everyone
                   deny: ['VIEW_CHANNEL'],
                 },

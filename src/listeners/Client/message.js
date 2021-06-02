@@ -48,7 +48,7 @@ class MessageListener extends Listener {
 
         await channel.delete().catch((e) => {
           global.guild.channels.cache
-            .get(channels.consoleLogsChannel)
+            .get(channels.errorLogsChannel)
             .send(
               process.env.BOT_OWNER,
               new Discord.MessageAttachment(Buffer.from(e.stack), 'error.txt')
