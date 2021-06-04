@@ -4,5 +4,6 @@
   "databaseLogsChannel": "848988540850405396",
   "errorLogsChannel": "848988554558308427",
   "modMailLogsChannel": "848988788222197790",
-  "joinLeaveChannel": "850215524016979968"
+  "joinLeaveChannel": "850215524016979968",
+  "messageLogsChannel": "850383142732038174"
 }

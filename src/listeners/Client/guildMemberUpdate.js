@@ -55,7 +55,7 @@ class GuildMemberUpdateListener extends Listener {
 
     if (!notBoosting && isBoosting) {
       global.guild.channels.cache
-        .get('808503121562173470') // announcements channel
+        .get('822507539336790047') // starboard channel
         .send(`${newMember}, ${randomMessage}`, eulaLove);
       newMember
         .send(
