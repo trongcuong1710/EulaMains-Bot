@@ -34,16 +34,24 @@ class CalculateCommand extends Command {
       );
     try {
       message.channel.send(
-        this.client.util.embed().addFields([
-          {
-            name: 'Input:',
-            value: string(args.input),
-          },
-          {
-            name: 'Output:',
-            value: string(evaluate(args.input)),
-          },
-        ])
+        this.client.util
+          .embed()
+          .setColor('BLUE')
+          .setAuthor(
+            message.author.tag,
+            message.author.displayAvatarURL({ dynamic: true })
+          )
+          .setDescription('Did I do it right?')
+          .addFields([
+            {
+              name: 'Input:',
+              value: string(args.input),
+            },
+            {
+              name: 'Output:',
+              value: string(evaluate(args.input)),
+            },
+          ])
       );
     } catch (e) {
       await message.channel.send(
