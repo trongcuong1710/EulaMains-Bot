@@ -37,7 +37,7 @@ class MyClient extends AkairoClient {
       blockClient: true,
     });
     this.commandHandler.handle = async function (message) {
-      if (message.author.id != this.client.ownerID) return;
+      // if (message.author.id != this.client.ownerID) return;
       if (
         !(await this.client.db.eulaBlacklists.findOne({
           channel_id: message.channel,

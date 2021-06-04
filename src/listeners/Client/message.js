@@ -13,7 +13,7 @@ class MessageListener extends Listener {
   }
   async exec(message) {
     if (message.author.bot) return;
-    if (message.author.id != this.client.ownerID) return;
+    // if (message.author.id != this.client.ownerID) return;
     const prefix = this.client.commandHandler.prefix;
     if (
       await this.client.db.eulaBlacklists.findOne({
