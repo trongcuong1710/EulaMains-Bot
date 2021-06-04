@@ -1,5 +1,5 @@
 const { Command } = require('discord-akairo');
-const Discord = require('discord.js');
+const { MessageEmbed, MessageAttachment } = require('discord.js');
 
 class QuotesCommand extends Command {
   constructor() {
@@ -26,7 +26,7 @@ class QuotesCommand extends Command {
 
     if (!quotes.length)
       return message.channel.send(
-        new Discord.MessageEmbed({
+        new MessageEmbed({
           description: `There are no quotes in the database.`,
         })
       );
@@ -35,7 +35,7 @@ class QuotesCommand extends Command {
       const list = quotes.map((x) => `Quote Name: ${x.quoteName}`).join('\n');
       return message.channel.send(
         `You can use \`.quotes <quoteName>\` to view a quote.`,
-        new Discord.MessageAttachment(Buffer.from(list), 'quotes.txt')
+        new MessageAttachment(Buffer.from(list), 'quotes.txt')
       );
     }
 
@@ -45,7 +45,7 @@ class QuotesCommand extends Command {
 
     if (!quoteIsRegistered)
       return message.channel.send(
-        new Discord.MessageEmbed({
+        new MessageEmbed({
           color: 'RED',
           description: `Quote: \`${args.quoteName}\`\nDoes not exist in the database.`,
         })
@@ -65,11 +65,11 @@ class QuotesCommand extends Command {
           `Quote Name: ${x.quoteName}\nAdded By: ${x.by}\nEmbed Source: ${x.quote}\nDown below you can see a preview of the embed.`
       )
       .join('\n');
-    const quoteFromNameAttachment = new Discord.MessageAttachment(
+    const quoteFromNameAttachment = new MessageAttachment(
       Buffer.from(quoteFromNameNoEmbed),
       `${args.quoteName}.txt`
     );
-    const quoteFromNameAttachmentWithEmbed = new Discord.MessageAttachment(
+    const quoteFromNameAttachmentWithEmbed = new MessageAttachment(
       Buffer.from(quoteFromNameYesEmbed),
       `${args.quoteName}.txt`
     );

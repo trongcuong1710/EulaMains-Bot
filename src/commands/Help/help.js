@@ -52,7 +52,7 @@ class HelpCommand extends Command {
           {
             name: `Usage`,
             value: `\`${prefix + args.command.description.usage}\``,
-            inline: true,
+            inline: false,
           },
           {
             name: `Description`,

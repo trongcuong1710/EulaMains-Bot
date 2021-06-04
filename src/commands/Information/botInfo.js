@@ -1,5 +1,5 @@
 const { Command, AkairoClient } = require('discord-akairo');
-const Discord = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const moment = require('moment');
 const bot = require('../../../package.json');
 const ms = require('ms');
@@ -20,7 +20,7 @@ class BotInfoCommand extends Command {
   async exec(message) {
     moment.locale('en');
     await message.channel.send(
-      new Discord.MessageEmbed({
+      new MessageEmbed({
         color: 'BLUE',
         description: `Hello, I'm Eula, your queen, nice to meet you!\n${
           this.client.users.cache.get(this.client.ownerID).username
@@ -32,7 +32,10 @@ class BotInfoCommand extends Command {
           { name: 'Support Zyla', value: `https://ko-fi.com/zylasden` },
           { name: 'Project Version:', value: bot.version },
           { name: 'Programming Language Used:', value: 'JavaScript' },
-          { name: 'Prefix:', value: this.client.commandHandler.prefix },
+          {
+            name: 'Prefix:',
+            value: `\`${this.client.commandHandler.prefix}\``,
+          },
           {
             name: 'Uptime',
             value: ms(this.client.uptime, { long: true }),

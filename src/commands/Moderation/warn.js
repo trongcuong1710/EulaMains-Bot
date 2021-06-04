@@ -1,5 +1,5 @@
 const { Command } = require('discord-akairo');
-const Discord = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 var moment = require('moment');
 const channels = require('../../Constants/channels.json');
 
@@ -40,7 +40,7 @@ class WarnCommand extends Command {
     const prefix = this.client.commandHandler.prefix;
     if (!args.member)
       return message.channel.send(
-        new Discord.MessageEmbed({
+        new MessageEmbed({
           color: 'RED',
           description: `\`\`\`\n${
             prefix + this.id
@@ -49,14 +49,14 @@ class WarnCommand extends Command {
       );
     if (args.member.id === message.member.id)
       return message.channel.send(
-        new Discord.MessageEmbed({
+        new MessageEmbed({
           color: 'RED',
           description: `You can't warn yourself!`,
         })
       );
     if (args.member === message.guild.me)
       return message.channel.send(
-        new Discord.MessageEmbed({
+        new MessageEmbed({
           color: 'RED',
           description: `You can't warn me!`,
         })
@@ -66,7 +66,7 @@ class WarnCommand extends Command {
       message.member.roles.highest.position
     )
       return message.channel.send(
-        new Discord.MessageEmbed({
+        new MessageEmbed({
           color: 'RED',
           description: `You can't warn someone with an equal or higher role!`,
         })
@@ -114,84 +114,33 @@ class WarnCommand extends Command {
       .then(async (c) => {
         await message.channel
           .send(
-            new Discord.MessageEmbed({
+            new MessageEmbed({
               color: 'GREEN',
-              description: `${args.member} has now been warned.`,
+              description: `${args.member.user.tag} has now been warned.`,
               fields: [
                 {
                   name: `View`,
                   value: `${this.client.commandHandler.prefix}warns ${args.member} ${c.warnID}`,
-                  inline: true,
                 },
                 {
                   name: `Remove`,
                   value: `${this.client.commandHandler.prefix}removewarn ${args.member} ${c.warnID}`,
-                  inline: true,
                 },
               ],
             })
           )
           .then(async () => {
-            await this.client.channels.cache.get(channels.logsChannel).send(
-              new Discord.MessageEmbed({
-                color: 'GREEN',
-                title: `Member Warned`,
-                description: `${args.member.user.username} has now been warned.`,
-                fields: [
-                  {
-                    name: `Moderator`,
-                    value: message.member,
-                    inline: true,
-                  },
-                  {
-                    name: `Member`,
-                    value: args.member,
-                    inline: true,
-                  },
-                  {
-                    name: `Reason`,
-                    value: reason,
-                    inline: false,
-                  },
-                  {
-                    name: `Warned At`,
-                    value: moment().format('LLLL'),
-                    inline: true,
-                  },
-                ],
-              })
-            );
-            await args.member
+            await this.client.channels.cache
+              .get(channels.punishmentLogsChannel)
               .send(
-                new Discord.MessageEmbed({
-                  color: 'RED',
+                new MessageEmbed({
+                  color: 'GREEN',
                   title: `Warned`,
-                  description: `You have been warned.`,
-                  fields: [
-                    {
-                      name: `Moderator`,
-                      value: message.member,
-                      inline: true,
-                    },
-                    {
-                      name: `Reason`,
-                      value: reason,
-                      inline: false,
-                    },
-                    {
-                      name: `Warned At`,
-                      value: moment().format('LLLL'),
-                      inline: true,
-                    },
-                  ],
-                  footer: {
-                    text: `If you think you are wrongfully warned, please contact an admin.`,
-                  },
+                  description: `**Offender**: ${args.member.user.tag}\n**Responsible Staff**: ${message.author.tag}\n**Reason**: ${reason}`,
+                  footer: { text: `ID: ${args.member.id}` },
+                  timestamp: new Date(),
                 })
-              )
-              .catch(async (e) => {
-                return;
-              });
+              );
           });
       });
   }

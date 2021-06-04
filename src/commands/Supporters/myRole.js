@@ -1,5 +1,5 @@
 const { Command } = require('discord-akairo');
-const Discord = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const roles = require('../../Constants/roles.json');
 
 class MyRoleCommand extends Command {
@@ -19,6 +19,7 @@ class MyRoleCommand extends Command {
           id: 'roleName',
           type: 'string',
           match: 'text',
+          unordered: true,
         },
         {
           id: 'name',
@@ -29,6 +30,7 @@ class MyRoleCommand extends Command {
           id: 'newName',
           type: 'string',
           match: 'text',
+          unordered: true,
         },
         {
           id: 'color',
@@ -39,6 +41,7 @@ class MyRoleCommand extends Command {
           id: 'newColor',
           type: 'string',
           match: 'text',
+          unordered: true,
         },
       ],
     });
@@ -57,7 +60,7 @@ class MyRoleCommand extends Command {
     if (args.name) {
       if (!role)
         return message.channel.send(
-          new Discord.MessageEmbed({
+          new MessageEmbed({
             color: 'RED',
             description: `You don't have a custom role.`,
             fields: [
@@ -73,7 +76,7 @@ class MyRoleCommand extends Command {
           .setName(`${message.member.user.username}'s Custom Role`)
           .then((updated) =>
             message.channel.send(
-              new Discord.MessageEmbed({
+              new MessageEmbed({
                 color: role.color,
                 description: `Your role name has been reset to ${updated.name}!`,
               })
@@ -83,7 +86,7 @@ class MyRoleCommand extends Command {
         .setName(args.newName)
         .then((updated) =>
           message.channel.send(
-            new Discord.MessageEmbed({
+            new MessageEmbed({
               color: role.color,
               description: `Your role name has been updated!`,
               fields: [
@@ -96,7 +99,7 @@ class MyRoleCommand extends Command {
         .catch(
           async (e) =>
             await message.channel.send(
-              new Discord.MessageEmbed({
+              new MessageEmbed({
                 color: 'RED',
                 description: e.message,
               })
@@ -107,7 +110,7 @@ class MyRoleCommand extends Command {
     if (args.color) {
       if (!role)
         return message.channel.send(
-          new Discord.MessageEmbed({
+          new MessageEmbed({
             color: 'RED',
             description: `You don't have a custom role.`,
             fields: [
@@ -121,7 +124,7 @@ class MyRoleCommand extends Command {
       if (!args.newColor)
         return await role.setColor('000000').then((updated) =>
           message.channel.send(
-            new Discord.MessageEmbed({
+            new MessageEmbed({
               color: updated.color,
               description: `Your role color has been reset to default!`,
             })
@@ -131,7 +134,7 @@ class MyRoleCommand extends Command {
         .setColor(args.newColor)
         .then((updated) =>
           message.channel.send(
-            new Discord.MessageEmbed({
+            new MessageEmbed({
               color: updated.color,
               description: `Your role name has been updated!`,
               fields: [
@@ -144,7 +147,7 @@ class MyRoleCommand extends Command {
         .catch(
           async (e) =>
             await message.channel.send(
-              new Discord.MessageEmbed({
+              new MessageEmbed({
                 color: 'RED',
                 description: e.message,
               })
@@ -155,7 +158,7 @@ class MyRoleCommand extends Command {
     if (!args.roleName) {
       if (!role)
         return message.channel.send(
-          new Discord.MessageEmbed({
+          new MessageEmbed({
             color: 'RED',
             description: `You don't have a custom role.`,
             fields: [
@@ -172,7 +175,7 @@ class MyRoleCommand extends Command {
         })
       )
         return message.channel.send(
-          new Discord.MessageEmbed({
+          new MessageEmbed({
             color: role.color,
             fields: [
               {
@@ -231,7 +234,7 @@ class MyRoleCommand extends Command {
                   );
                   await message.member.roles.add(role.id);
                   message.channel.send(
-                    new Discord.MessageEmbed({
+                    new MessageEmbed({
                       color: role.color,
                       description: `Successfully prepared and assigned your custom role to you!`,
                       fields: [
@@ -260,7 +263,7 @@ class MyRoleCommand extends Command {
             });
       } else
         return message.channel.send(
-          new Discord.MessageEmbed({
+          new MessageEmbed({
             color: 'RED',
             description: `Sorry but only nitro boosters can have a custom role.`,
           })

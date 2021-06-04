@@ -1,5 +1,5 @@
 const { Command } = require('discord-akairo');
-const Discord = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const moment = require('moment');
 const channels = require('../../Constants/channels.json');
 const roles = require('../../Constants/roles.json');
@@ -35,7 +35,7 @@ class ModmailCommand extends Command {
         })
         .then(() => {
           message.author.send(
-            new Discord.MessageEmbed({
+            new MessageEmbed({
               color: 'GREEN',
               title: `Ticket Created!`,
               description: `Please only use this if you have a question ONLY the administrators are able to answer and not for in-game Genshin questions.`,
@@ -97,8 +97,8 @@ class ModmailCommand extends Command {
               const admins = global.guild.roles.cache.get(roles.adminRole);
               channel.send(
                 `${admins}, <@&808515071772459018>`,
-                new Discord.MessageEmbed({
-                  color: 'GREEN',
+                new MessageEmbed({
+                  color: 'BLUE',
                   title: `${user.username}-${user.id} created a ticket!`,
                 })
               );
@@ -115,9 +115,9 @@ class ModmailCommand extends Command {
                         await channel.delete().then(() => {
                           user
                             .send(
-                              new Discord.MessageEmbed({
+                              new MessageEmbed({
                                 color: 'RED',
-                                title: `Thread is now closed`,
+                                title: `Ticket is now closed`,
                                 description: `Thank you for contacting the Eula Mains staff team. We hope we've addressed your query!`,
                                 timestamp: moment().format('LLLL'),
                               })
@@ -146,7 +146,7 @@ class ModmailCommand extends Command {
                   )
                     return user
                       .send(
-                        new Discord.MessageEmbed({
+                        new MessageEmbed({
                           color: 'GREEN',
                           title: `${m.author.username} said:`,
                           description: `${m.content}`,
@@ -166,7 +166,7 @@ class ModmailCommand extends Command {
                 if (isIncludingLink)
                   return user
                     .send(
-                      new Discord.MessageEmbed({
+                      new MessageEmbed({
                         color: 'GREEN',
                         title: `${m.author.username} said:`,
                         description: `${m.content.replace(
@@ -181,7 +181,7 @@ class ModmailCommand extends Command {
                     });
                 user
                   .send(
-                    new Discord.MessageEmbed({
+                    new MessageEmbed({
                       color: 'GREEN',
                       title: `${m.author.username} said:`,
                       description: `${m.content}`,
@@ -205,7 +205,7 @@ class ModmailCommand extends Command {
                     })
                   )
                     return channel.send(
-                      new Discord.MessageEmbed({
+                      new MessageEmbed({
                         color: 'GREEN',
                         title: `${m.author.username} said:`,
                         description: `${m.content}`,
@@ -221,7 +221,7 @@ class ModmailCommand extends Command {
 
                 if (isIncludingLink)
                   return channel.send(
-                    new Discord.MessageEmbed({
+                    new MessageEmbed({
                       color: 'GREEN',
                       title: `${m.author.username} said:`,
                       description: `${m.content.replace(
@@ -233,7 +233,7 @@ class ModmailCommand extends Command {
                   );
 
                 channel.send(
-                  new Discord.MessageEmbed({
+                  new MessageEmbed({
                     color: 'GREEN',
                     title: `${m.author.username} said:`,
                     description: `${m.content}`,
@@ -260,8 +260,8 @@ class ModmailCommand extends Command {
                 channels.modMailLogsChannel
               );
               modMailLogsChannel.send(
-                `Thread for ${user.username} is closed, read below for logs.`,
-                new Discord.MessageAttachment(
+                `Ticket for ${user.username} is closed, read below for logs.`,
+                new MessageAttachment(
                   Buffer.from(logs),
                   `${user.username}-logs.txt`
                 )

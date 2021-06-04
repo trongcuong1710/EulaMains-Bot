@@ -12,12 +12,20 @@ class MessageListener extends Listener {
     });
   }
   async exec(message) {
+    if (message.author.bot) return;
+    if (message.author.id != this.client.ownerID) return;
+    const prefix = this.client.commandHandler.prefix;
+    if (
+      await this.client.db.eulaBlacklists.findOne({
+        channel_id: message.channel,
+      })
+    )
+      return;
+    //? Modmail
+    //#region Modmail
     const fetchedMember = await this.client.db.eulaIgnoreList.findOne({
       member_id: message.author.id,
     });
-
-    if (message.author.bot) return;
-    //if (message.author.id != this.client.ownerID) return;
 
     const modMails = await this.client.db.eulaModmail.find();
     if (!modMails) return;
@@ -29,7 +37,7 @@ class MessageListener extends Listener {
         message.channel.id === channel.id &&
         message.content === 'close ticket'
       ) {
-        await global.guild.channels.cache.get(channels.dbLogsChannel).send(
+        await global.guild.channels.cache.get(channels.modMailLogsChannel).send(
           new Discord.MessageEmbed({
             color: 'RED',
             description: `A ticket channel was deleted, so I deleted the ticket info from database.`,
@@ -73,16 +81,10 @@ class MessageListener extends Listener {
         })
       );
     }
+    //#endregion
 
-    if (
-      await this.client.db.eulaBlacklists.findOne({
-        channel_id: message.channel,
-      })
-    )
-      return;
-
-    const prefix = this.client.commandHandler.prefix;
-
+    //? Quote System
+    //#region Quote System
     let quoteName = '';
     const firstWord = message.content.trim().split(/ +/g)[0];
     if (firstWord.startsWith(prefix)) {
@@ -114,6 +116,7 @@ class MessageListener extends Listener {
     return message.channel.send(
       message.mentions.users.first() ? eulaQuotes.quote : eulaQuotes.quote
     );
+    //#endregion
   }
 }
 

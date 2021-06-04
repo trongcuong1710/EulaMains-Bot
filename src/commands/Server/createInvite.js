@@ -1,7 +1,5 @@
 const { Command } = require('discord-akairo');
-const Discord = require('discord.js');
 const moment = require('moment');
-const channels = require('../../Constants/channels.json');
 
 class InviteCommand extends Command {
   constructor() {

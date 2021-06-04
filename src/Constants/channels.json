@@ -1,8 +1,8 @@
 {
-  "logsChannel": "848988499101220905",
-  "dbLogsChannel": "848988540850405396",
+  "punishmentLogsChannel": "848988499101220905",
+  "memberLogsChannel": "850116219528806451",
+  "databaseLogsChannel": "848988540850405396",
   "errorLogsChannel": "848988554558308427",
-  "starboardChannel": "822507539336790047",
-  "welcomeChannel": "821109056827424782",
-  "modMailLogsChannel": "848988788222197790"
+  "modMailLogsChannel": "848988788222197790",
+  "joinLeaveChannel": "850215524016979968"
 }

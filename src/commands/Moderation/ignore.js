@@ -53,30 +53,19 @@ class IgnoreCommand extends Command {
           ignoredBy: message.author,
         })
         .then(() => {
-          this.client.channels.cache.get(channels.dbLogsChannel).send(
+          this.client.channels.cache.get(channels.punishmentLogsChannel).send(
             new Discord.MessageEmbed({
               color: 'GREEN',
-              title: `Member Ignored`,
-              fields: [
-                {
-                  name: 'Member',
-                  value: args.member,
-                },
-                {
-                  name: 'Responsible Staff',
-                  value: message.member,
-                },
-                {
-                  name: 'Ignored At',
-                  value: moment().format('LLLL'),
-                },
-              ],
+              title: `DMs Ignored`,
+              description: `**Offender**: ${args.member.user.tag}\n**Responsible Staff**: ${message.author.tag}`,
+              footer: { text: `ID: ${args.member.id}` },
+              timestamp: new Date(),
             })
           );
           message.channel.send(
             new Discord.MessageEmbed({
               color: 'GREEN',
-              description: `${args.member}'s DMs are now ignored.`,
+              description: `${args.member.user.tag}'s DMs are now ignored.`,
             })
           );
         });
@@ -86,30 +75,19 @@ class IgnoreCommand extends Command {
           member_id: args.member,
         })
         .then(() => {
-          this.client.channels.cache.get(channels.dbLogsChannel).send(
+          this.client.channels.cache.get(channels.punishmentLogsChannel).send(
             new Discord.MessageEmbed({
               color: 'RED',
-              title: `Member Unignored`,
-              fields: [
-                {
-                  name: 'Member',
-                  value: args.member,
-                },
-                {
-                  name: 'Responsible Staff',
-                  value: message.member,
-                },
-                {
-                  name: 'Unignored At',
-                  value: moment().format('LLLL'),
-                },
-              ],
+              title: `DMs Unignored`,
+              description: `**Offender**: ${args.member.user.tag}\n**Responsible Staff**: ${message.author.tag}`,
+              footer: { text: `ID: ${args.member.id}` },
+              timestamp: new Date(),
             })
           );
           message.channel.send(
             new Discord.MessageEmbed({
               color: 'GREEN',
-              description: `${args.member}'s DMs are not ignored anymore.`,
+              description: `${args.member.user.tag}'s DMs are not ignored anymore.`,
             })
           );
         });

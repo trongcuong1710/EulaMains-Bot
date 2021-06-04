@@ -1,5 +1,5 @@
 const { Listener } = require('discord-akairo');
-const Discord = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const ErrorHandler = require('../../util/errorHandler');
 
 class MissingPermissionsListener extends Listener {
@@ -14,7 +14,7 @@ class MissingPermissionsListener extends Listener {
   async exec(message, command, type, missing) {
     if (type === 'client')
       return message.channel.send(
-        new Discord.MessageEmbed({
+        new MessageEmbed({
           color: 'RED',
           title: 'Missing Permissions',
           description: `I need more powah :c`,
@@ -26,7 +26,7 @@ class MissingPermissionsListener extends Listener {
       );
     if (type === 'user')
       return message.channel.send(
-        new Discord.MessageEmbed({
+        new MessageEmbed({
           color: 'RED',
           title: 'Missing Permissions',
           description: 'You need more powah, but no begging for promotion >:(',

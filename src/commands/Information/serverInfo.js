@@ -1,5 +1,5 @@
 const { Command } = require('discord-akairo');
-const Discord = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const moment = require('moment');
 
 const filterLevels = {
@@ -54,7 +54,7 @@ class ServerInfoCommand extends Command {
     const channels = message.guild.channels.cache;
     const emojis = message.guild.emojis.cache;
 
-    const embed = new Discord.MessageEmbed()
+    const embed = new MessageEmbed()
       .setDescription(`**Server Info**`)
       .setColor('BLUE')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))

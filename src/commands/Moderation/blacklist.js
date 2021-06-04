@@ -6,7 +6,7 @@ const channels = require('../../Constants/channels.json');
 class BlacklistCommand extends Command {
   constructor() {
     super('blacklist', {
-      aliases: ['blacklist', 'bl'],
+      aliases: ['blacklist'],
       category: 'Moderation',
       channel: 'guild',
       args: [
@@ -82,24 +82,13 @@ class BlacklistCommand extends Command {
               footer: { text: `Use the command again to unblacklist.` },
             })
           );
-          this.client.channels.cache.get(channels.dbLogsChannel).send(
+          this.client.channels.cache.get(channels.databaseLogsChannel).send(
             new Discord.MessageEmbed({
               color: 'GREEN',
               title: `Channel Blacklist`,
-              fields: [
-                {
-                  name: 'Channel',
-                  value: args.channel,
-                },
-                {
-                  name: 'Responsible Staff',
-                  value: message.member,
-                },
-                {
-                  name: 'Blacklisted At',
-                  value: moment().format('LLLL'),
-                },
-              ],
+              description: `**Channel**: ${args.channel}\n**Responsible Staff**: ${message.author.tag}`,
+              footer: { text: `Channel ID: ${args.channel.id}` },
+              timestamp: new Date(),
             })
           );
         });
@@ -117,25 +106,14 @@ class BlacklistCommand extends Command {
             })
           );
           return await this.client.channels.cache
-            .get(channels.dbLogsChannel)
+            .get(channels.databaseLogsChannel)
             .send(
               new Discord.MessageEmbed({
                 color: 'RED',
                 title: `Channel Unblacklist`,
-                fields: [
-                  {
-                    name: 'Channel',
-                    value: args.channel,
-                  },
-                  {
-                    name: 'Responsible Staff',
-                    value: message.member,
-                  },
-                  {
-                    name: 'Unblacklisted At',
-                    value: moment().format('LLLL'),
-                  },
-                ],
+                description: `**Channel**: ${args.channel}\n**Responsible Staff**: ${message.author.tag}`,
+                footer: { text: `Channel ID: ${args.channel.id}` },
+                timestamp: new Date(),
               })
             );
         });

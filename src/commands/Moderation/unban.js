@@ -1,7 +1,7 @@
 const { Command } = require('discord-akairo');
-const Discord = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const moment = require('moment');
-const channels = require('../../Constants/channels.json');
+
 class UnbanCommand extends Command {
   constructor() {
     super('unban', {
@@ -23,7 +23,7 @@ class UnbanCommand extends Command {
       ],
       description: {
         description: 'Unbans the member. **Use IDs Only**',
-        usage: 'unban <user> <reason>',
+        usage: 'unban <user> [reason]',
       },
     });
   }
@@ -33,48 +33,35 @@ class UnbanCommand extends Command {
     const prefix = this.client.commandHandler.prefix;
     if (!args.user)
       return message.channel.send(
-        new Discord.MessageEmbed({
+        new MessageEmbed({
           color: 'RED',
           description: `\`\`\`\n${
             prefix + this.id
           } <user> [reason]\n       ^^^^^^\nuser is a required argument that is missing.\`\`\``,
         })
       );
-    if (!args.reason) args.reason = '`None Provided`';
+    if (!args.reason) args.reason = 'None Provided';
     if (args.reason.length > 1024) reason = reason.slice(0, 1021) + '...';
 
     await message.guild.fetchBans().then(async (bans) => {
-      const user = bans.get(args.user);
-      if (!user)
-        return message.channel.send(
-          new Discord.MessageEmbed({
+      const isBanned = await bans.some((u) => u.user.id === args.user);
+      const user = await bans.find((u) => u.user.id === args.user);
+      const member = await this.client.users.cache.get(args.user);
+
+      if (!isBanned)
+        return await message.channel.send(
+          new MessageEmbed({
             color: 'RED',
-            description: `They are not in ban list.`,
+            description: `**${member.tag}** is not banned tho.`,
           })
         );
       await message.guild.members
-        .unban(user.user, args.reason)
+        .unban(user.user.id, args.reason)
         .then(async () => {
-          await message.channel.send(
-            new Discord.MessageEmbed({
-              color: 'GREEN',
-              description: `Successful unban.`,
-              fields: [
-                { name: 'User', value: user.user },
-                { name: 'ID', value: user.user.id },
-              ],
-            })
-          );
-          await this.client.channels.cache.get(channels.logsChannel).send(
-            new Discord.MessageEmbed({
-              color: 'RED',
-              title: `Unban`,
-              fields: [
-                { name: 'Member', value: user.user },
-                { name: 'Reason', value: args.reason },
-                { name: 'Responsible Staff', value: message.member },
-                { name: 'Unbanned At', value: moment().format('LLLL') },
-              ],
+          return await message.channel.send(
+            new MessageEmbed({
+              color: 'BLUE',
+              description: `**${user.user.tag}** successfully unbanned.`,
             })
           );
         });

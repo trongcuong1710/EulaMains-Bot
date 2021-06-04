@@ -1,5 +1,5 @@
 const { Command } = require('discord-akairo');
-const Discord = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const channels = require('../../Constants/channels.json');
 const moment = require('moment');
 
@@ -27,7 +27,7 @@ class RemoveQuoteCommand extends Command {
     moment.locale('en');
     if (!args.quote)
       return message.channel.send(
-        new Discord.MessageEmbed({
+        new MessageEmbed({
           description: `Please supply a quote name to remove from the database.`,
         })
       );
@@ -45,7 +45,7 @@ class RemoveQuoteCommand extends Command {
           .filter((x) => roles.includes(x)).length === 0
       )
         return await message.channel.send(
-          new Discord.MessageEmbed({
+          new MessageEmbed({
             color: 'RED',
             description: "You can't do that with the permissions you have.",
           })
@@ -61,8 +61,8 @@ class RemoveQuoteCommand extends Command {
           quoteName: args.quote,
         })
         .then(() => {
-          this.client.channels.cache.get(channels.dbLogsChannel).send(
-            new Discord.MessageEmbed({
+          this.client.channels.cache.get(channels.databaseLogsChannel).send(
+            new MessageEmbed({
               color: 'RED',
               title: `Quote Removed`,
               description: `**${args.quote}** has now been removed.`,
@@ -96,12 +96,12 @@ class RemoveQuoteCommand extends Command {
         });
     } else
       return message.channel.send(
-        new Discord.MessageEmbed().setDescription(
+        new MessageEmbed().setDescription(
           `**${args.quote}** doesn't exist in the database!`
         )
       );
     message.channel.send(
-      new Discord.MessageEmbed({
+      new MessageEmbed({
         color: 'RED',
         description: `**${args.quote}** has now been removed.`,
         footer: { text: 'View logs for details.' },

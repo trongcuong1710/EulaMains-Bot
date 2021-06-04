@@ -1,5 +1,5 @@
 const { Command } = require('discord-akairo');
-const Discord = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 
 class DeleteCustomRoleCommand extends Command {
   constructor() {
@@ -37,14 +37,14 @@ class DeleteCustomRoleCommand extends Command {
   async exec(message, args) {
     if (!args.member)
       return message.channel.send(
-        new Discord.MessageEmbed({
+        new MessageEmbed({
           color: 'RED',
           description: `\`\`\`\n${
             prefix + this.id
           } <member> [reason]\n     ^^^^^^^^\nmember is a required argument that is missing.\`\`\``,
         })
       );
-    else if (!args.reason) args.reason = '`None Provided`';
+    if (!args.reason) args.reason = '`None Provided`';
 
     const customRoles = await this.client.db.eulaCustomRoles.find({
       roleOwner: args.member.id,
@@ -59,7 +59,7 @@ class DeleteCustomRoleCommand extends Command {
 
         await role.delete(args.reason).then(async () => {
           await message.channel.send(
-            new Discord.MessageEmbed({
+            new MessageEmbed({
               color: 'GREEN',
               description: `Successfully deleted the role!`,
             })

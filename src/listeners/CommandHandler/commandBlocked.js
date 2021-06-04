@@ -1,5 +1,5 @@
 const { Listener } = require('discord-akairo');
-const Discord = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 
 class CommandBlockedListener extends Listener {
   constructor() {
@@ -15,7 +15,7 @@ class CommandBlockedListener extends Listener {
     if (reason == 'dm' || reason == 'guild')
       return await message.channel.send(
         message.member,
-        new Discord.MessageEmbed({
+        new MessageEmbed({
           color: 'RED',
           description: `\`${prefix + command}\` is not usable here.`,
           fields: [
@@ -27,7 +27,7 @@ class CommandBlockedListener extends Listener {
         })
       );
     return message.channel.send(
-      new Discord.MessageEmbed({
+      new MessageEmbed({
         color: 'RED',
         description: `\`${prefix + command}\` is not usable by everyone.`,
         fields: [{ name: `Reason`, value: `This command is ${reason} only.` }],

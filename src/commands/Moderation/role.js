@@ -66,19 +66,6 @@ class RoleCommand extends Command {
 
     if (!args.member.roles.cache.has(args.role.id)) {
       await args.member.roles.add(args.role.id).then(() => {
-        this.client.channels.cache.get(channels.logsChannel).send(
-          new Discord.MessageEmbed({
-            color: 'GREEN',
-            title: `Add Role`,
-            fields: [
-              { name: 'Member', value: args.member },
-              { name: 'Role', value: args.role },
-              { name: 'Role ID', value: args.role.id },
-              { name: 'Responsible Staff', value: message.member },
-              { name: 'Added At', value: moment().format('LLLL') },
-            ],
-          })
-        );
         message.channel.send(
           new Discord.MessageEmbed({
             color: 'GREEN',
@@ -91,19 +78,6 @@ class RoleCommand extends Command {
       });
     } else {
       return await args.member.roles.remove(args.role.id).then(() => {
-        this.client.channels.cache.get(channels.logsChannel).send(
-          new Discord.MessageEmbed({
-            color: 'RED',
-            title: `Removed Role`,
-            fields: [
-              { name: 'Member', value: args.member },
-              { name: 'Role', value: args.role },
-              { name: 'Role ID', value: args.role.id },
-              { name: 'Responsible Staff', value: message.member },
-              { name: 'Removed At', value: moment().format('LLLL') },
-            ],
-          })
-        );
         message.channel.send(
           new Discord.MessageEmbed({
             color: 'RED',

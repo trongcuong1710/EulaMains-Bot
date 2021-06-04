@@ -1,5 +1,5 @@
 const { Command } = require('discord-akairo');
-const Discord = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 
 class SayCommand extends Command {
   constructor() {
@@ -39,13 +39,13 @@ class SayCommand extends Command {
   async exec(message, args) {
     if (!args.channel)
       return message.channel.send(
-        new Discord.MessageEmbed({
+        new MessageEmbed({
           description: `Please supply a channel to send the message.`,
         })
       );
     if (!args.message)
       return message.channel.send(
-        new Discord.MessageEmbed({
+        new MessageEmbed({
           description: `Please supply a message to send to the channel.`,
         })
       );

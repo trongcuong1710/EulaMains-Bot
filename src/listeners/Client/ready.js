@@ -17,43 +17,70 @@ class ReadyListener extends Listener {
     console.log('Ready');
     global.guild = this.client.guilds.cache.get(process.env.EulaMains);
 
+    //? Mute System
+    //#region Handling Mutes
     const mutes = await this.client.db.eulaMutes.find();
     if (!mutes) return;
 
     mutes.forEach(async (x) => {
       const member = global.guild.members.cache.get(x.member_id);
+      const responsibleStaff = global.guild.members.cache.get(
+        x.responsibleStaff
+      );
 
       if (x.unmuteDate <= Date.now()) {
         return await member.roles.remove(roles.muteRole).then(async () => {
           await this.client.db.eulaMutes.deleteOne({
             member_id: member.id,
           });
-          this.client.channels.cache.get(channels.logsChannel).send(
-            new Discord.MessageEmbed({
-              color: 'GREEN',
-              title: `Member Unmuted`,
-              description: `${member} has been unmuted.`,
-            })
-          );
+          await this.client.channels.cache
+            .get(channels.punishmentLogsChannel)
+            .send(
+              new Discord.MessageEmbed({
+                color: 'GREEN',
+                title: `Unmuted`,
+                description: `**Offender**: ${
+                  member.user.username + '#' + member.user.discriminator
+                }\n**Reason**: ${x.reason}\n**Responsible Staff**: ${
+                  responsibleStaff.user.username +
+                  '#' +
+                  responsibleStaff.user.discriminator
+                }`,
+                footer: { text: `ID: ${member.id}` },
+                timestamp: new Date(),
+              })
+            );
         });
       } else {
         return setTimeout(async () => {
-          return member.roles.remove(roles.muteRole).then(async () => {
+          return await member.roles.remove(roles.muteRole).then(async () => {
             await this.client.db.eulaMutes.deleteOne({
               member_id: member.id,
             });
-            this.client.channels.cache.get(channels.logsChannel).send(
-              new Discord.MessageEmbed({
-                color: 'GREEN',
-                title: `Member Unmuted (Auto Unmute)`,
-                description: `${member} has been unmuted.`,
-              })
-            );
+            await this.client.channels.cache
+              .get(channels.punishmentLogsChannel)
+              .send(
+                new Discord.MessageEmbed({
+                  color: 'GREEN',
+                  title: `Unmuted`,
+                  description: `**Offender**: ${
+                    member.user.username + '#' + member.user.discriminator
+                  }\n**Reason**: ${x.reason}\n**Responsible Staff**: ${
+                    responsibleStaff.user.username +
+                    '#' +
+                    responsibleStaff.user.discriminator
+                  }`,
+                  footer: { text: `ID: ${member.id}` },
+                  timestamp: new Date(),
+                })
+              );
           });
         }, x.unmuteDate - Date.now());
       }
     });
-
+    //#endregion
+    //? Modmail
+    //#region Handling tickets
     const modMails = await this.client.db.eulaModmail.find();
     if (!modMails) return;
     modMails.forEach(async (x) => {
@@ -67,7 +94,7 @@ class ReadyListener extends Listener {
               .deleteOne({ channel_id: channel.id })
               .then(async () => {
                 await global.guild.channels.cache
-                  .get(channels.dbLogsChannel)
+                  .get(channels.modMailLogsChannel)
                   .send(
                     new Discord.MessageEmbed({
                       color: 'RED',
@@ -99,6 +126,7 @@ class ReadyListener extends Listener {
         });
       });
     });
+    //#endregion
   }
 }
 module.exports = ReadyListener;

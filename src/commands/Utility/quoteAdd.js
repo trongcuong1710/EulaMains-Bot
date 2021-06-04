@@ -1,5 +1,5 @@
 const { Command } = require('discord-akairo');
-const Discord = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const channels = require('../../Constants/channels.json');
 const moment = require('moment');
 
@@ -32,13 +32,13 @@ class AddQuoteCommand extends Command {
     moment.locale('en');
     if (!args.quote)
       return message.channel.send(
-        new Discord.MessageEmbed({
+        new MessageEmbed({
           description: `Please supply a quote name to add into the database.`,
         })
       );
     if (!args.answer)
       return message.channel.send(
-        new Discord.MessageEmbed({
+        new MessageEmbed({
           description: `Please supply a quote answer to add into the database.`,
         })
       );
@@ -56,7 +56,7 @@ class AddQuoteCommand extends Command {
           .filter((x) => roles.includes(x)).length === 0
       )
         return await message.channel.send(
-          new Discord.MessageEmbed({
+          new MessageEmbed({
             color: 'RED',
             description: "You can't do that with the permissions you have.",
           })
@@ -66,9 +66,7 @@ class AddQuoteCommand extends Command {
     let data;
     let embed = false;
     try {
-      data = JSON.stringify(
-        new Discord.MessageEmbed(JSON.parse(args.answer)).toJSON()
-      );
+      data = JSON.stringify(new MessageEmbed(JSON.parse(args.answer)).toJSON());
 
       embed = true;
     } catch (_) {
@@ -84,14 +82,14 @@ class AddQuoteCommand extends Command {
         })
         .then(() => {
           message.channel.send(
-            new Discord.MessageEmbed({
+            new MessageEmbed({
               color: 'GREEN',
               description: `**${args.quote}** has now been added.`,
               footer: { text: 'View logs for details.' },
             })
           );
-          this.client.channels.cache.get(channels.dbLogsChannel).send(
-            new Discord.MessageEmbed({
+          this.client.channels.cache.get(channels.databaseLogsChannel).send(
+            new MessageEmbed({
               color: 'GREEN',
               title: `Quote Added`,
               description: `**${args.quote}** has now been added.`,
@@ -125,7 +123,7 @@ class AddQuoteCommand extends Command {
         });
     } else
       return message.channel.send(
-        new Discord.MessageEmbed().setDescription(
+        new MessageEmbed().setDescription(
           `**${args.quote}** is already in the database!`
         )
       );

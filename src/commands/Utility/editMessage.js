@@ -1,5 +1,5 @@
 const { Command } = require('discord-akairo');
-const Discord = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 
 class EditMessageCommand extends Command {
   constructor() {
@@ -30,13 +30,13 @@ class EditMessageCommand extends Command {
   async exec(message, args) {
     if (!args.messageID)
       return message.channel.send(
-        new Discord.MessageEmbed({
+        new MessageEmbed({
           description: `You must provide a message ID that is sent by **me**.`,
         })
       );
     if (!args.newMessage)
       return message.channel.send(
-        new Discord.MessageEmbed({
+        new MessageEmbed({
           description: `You must provide a message to replace the old one.`,
         })
       );

@@ -17,7 +17,7 @@ class MyClient extends AkairoClient {
       {
         disableMentions: 'everyone',
         fetchAllMembers: true,
-        //partials: ['CHANNEL', 'GUILD_MEMBER', 'MESSAGE', 'REACTION', 'USER'],
+        partials: ['CHANNEL', 'GUILD_MEMBER', 'MESSAGE', 'REACTION', 'USER'],
         presence: {
           activity: {
             name: `for vengeance.`,
@@ -37,7 +37,7 @@ class MyClient extends AkairoClient {
       blockClient: true,
     });
     this.commandHandler.handle = async function (message) {
-      // if (message.author.id != this.client.ownerID) return;
+      if (message.author.id != this.client.ownerID) return;
       if (
         !(await this.client.db.eulaBlacklists.findOne({
           channel_id: message.channel,
@@ -124,6 +124,8 @@ class MyClient extends AkairoClient {
         'eulaMutes',
         new mongoose.Schema({
           member_id: String,
+          responsibleStaff: String,
+          reason: String,
           unmuteDate: Number,
         }),
         'eulaMutes'

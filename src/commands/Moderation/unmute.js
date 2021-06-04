@@ -1,5 +1,5 @@
 const { Command } = require('discord-akairo');
-const Discord = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const channels = require('../../Constants/channels.json');
 const roles = require('../../Constants/roles.json');
 
@@ -13,7 +13,7 @@ class UnmuteCommand extends Command {
       userPermissions: 'MUTE_MEMBERS',
       description: {
         description: 'Unmute a member.',
-        usage: 'unmute <member>',
+        usage: 'unmute <member> <reason>',
       },
       args: [
         {
@@ -36,7 +36,7 @@ class UnmuteCommand extends Command {
     const prefix = this.client.commandHandler.prefix;
     if (!args.member)
       return message.channel.send(
-        new Discord.MessageEmbed({
+        new MessageEmbed({
           color: 'RED',
           description: `\`\`\`\n${
             prefix + this.id
@@ -50,32 +50,24 @@ class UnmuteCommand extends Command {
           member_id: args.member.id,
         });
         await message.channel.send(
-          new Discord.MessageEmbed({
+          new MessageEmbed({
             color: 'GREEN',
-            description: `${args.member} has now been unmuted.`,
+            description: `**${args.member}** has now been unmuted.`,
           })
         );
-        await this.client.channels.cache.get(channels.logsChannel).send(
-          new Discord.MessageEmbed({
-            color: 'GREEN',
-            title: `Member Unmuted (Command Unmute)`,
-            description: `${args.member} has been unmuted.`,
-          })
-        );
-        await args.member
+        await this.client.channels.cache
+          .get(channels.punishmentLogsChannel)
           .send(
-            new Discord.MessageEmbed({
+            new MessageEmbed({
               color: 'GREEN',
-              description: `You have been unmuted in **${global.guild.name}**`,
+              title: `Unmuted`,
+              description: `**${args.member}** has been unmuted.`,
             })
-          )
-          .catch(async (e) => {
-            return;
-          });
+          );
       });
     } else {
       return message.channel.send(
-        new Discord.MessageEmbed({
+        new MessageEmbed({
           color: 'RED',
           description: `${args.member} is not muted.`,
         })
