@@ -47,8 +47,8 @@ module.exports = class ErrorHandler {
       .send(
         new Discord.MessageEmbed({
           color: 'RED',
-          title: `I'm sorry, my uncle is on my way!`,
-          description: `My uncle is stronk!\nPlease react with 📨 to report them to Zyla!\n\n**You have 10 seconds to react.**`,
+          title: `ERROR`,
+          description: `Please react with 📨 to report the issue to Zyla!\n\n**You have 10 seconds to react.**`,
         })
       )
       .then(async (m) => {
@@ -65,7 +65,7 @@ module.exports = class ErrorHandler {
               .edit(
                 new Discord.MessageEmbed({
                   color: 'GREEN',
-                  description: `Thanks for your help, ${u}!\nI'm telling my dad to bonk my uncle ASAP!`,
+                  description: `Thanks for your help, ${u}!`,
                 })
               )
               .then(async () => {
@@ -80,7 +80,7 @@ module.exports = class ErrorHandler {
               new Discord.MessageEmbed({
                 color: 'RED',
                 title: `Timeout!`,
-                description: `Time's up, ${msg.author}!\nYou couldn't report my uncle in time...\nDon't worry though, I reported the issue to my dad myself!`,
+                description: `Time's up, ${msg.author}!\nYou couldn't report in time...\nDon't worry though, I reported the issue myself!`,
               })
             );
           }

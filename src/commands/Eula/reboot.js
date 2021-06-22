@@ -9,7 +9,7 @@ class RebootCommand extends Command {
       userPermissions: 'ADMINISTRATOR',
       description: { description: 'Reboots the bot.', usage: 'reboot' },
       ownerOnly: false,
-      category: 'Keqing',
+      category: 'Eula',
     });
   }
 
@@ -18,7 +18,7 @@ class RebootCommand extends Command {
       .send(
         new MessageEmbed({
           color: 'BLUE',
-          description: `I'll be right back!`,
+          description: `I will have vengeance for this!`,
         })
       )
       .then(async () => {

@@ -10,15 +10,11 @@ class UnbanCommand extends Command {
       category: 'Moderation',
       channel: 'guild',
       userPermissions: 'BAN_MEMBERS',
+      clientPermissions: 'BAN_MEMBERS',
       args: [
         {
           id: 'user',
           type: 'string',
-        },
-        {
-          id: 'reason',
-          type: 'string',
-          match: 'rest',
         },
       ],
       description: {
@@ -40,8 +36,6 @@ class UnbanCommand extends Command {
           } <user> [reason]\n       ^^^^^^\nuser is a required argument that is missing.\`\`\``,
         })
       );
-    if (!args.reason) args.reason = 'None Provided';
-    if (args.reason.length > 1024) reason = reason.slice(0, 1021) + '...';
 
     await message.guild.fetchBans().then(async (bans) => {
       const isBanned = await bans.some((u) => u.user.id === args.user);
@@ -61,7 +55,9 @@ class UnbanCommand extends Command {
           return await message.channel.send(
             new MessageEmbed({
               color: 'BLUE',
-              description: `**${user.user.tag}** successfully unbanned.`,
+              description: `${
+                user.user.tag || user.user.id || user.user
+              } successfully unbanned.`,
             })
           );
         });

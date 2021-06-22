@@ -29,7 +29,7 @@ class CalculateCommand extends Command {
         new MessageEmbed({
           color: 'RED',
           description:
-            'Please input a mathematical operation or conversion such as "1 km to m" (yes with quotes)',
+            'Please input a mathematical operation or conversion such as 2 + 2 (which is 5 (i am a giga brain))',
         })
       );
     try {

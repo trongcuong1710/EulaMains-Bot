@@ -23,10 +23,8 @@ class HelpCommand extends Command {
     if (!args.command)
       return message.channel.send(
         new Discord.MessageEmbed({
-          color: 'BLUE',
-          description: `You expected me to show a list of commands with ${
-            prefix + this.id
-          }?\nWrong, you get my ko-fi page instead.\nhttps://ko-fi.com/zylasden`,
+          color: 'RED',
+          description: `In development.\n\n[You can donate my programmer here!](https://ko-fi.com/zylasden)`,
         })
       );
 

@@ -14,14 +14,7 @@ class BanCommand extends Command {
       args: [
         {
           id: 'member',
-          type: (message, phrase) => {
-            return this.client.util.resolveMember(
-              phrase,
-              message.guild.members.cache,
-              false,
-              true
-            );
-          },
+          type: 'string',
         },
         {
           id: 'reason',
@@ -30,48 +23,45 @@ class BanCommand extends Command {
         },
       ],
       description: {
-        description: 'Ban the specified member in the guild.',
-        usage: 'ban <member> [reason]',
+        description: 'Ban the specified user.',
+        usage: 'ban <user> [reason]',
       },
     });
   }
 
   async exec(message, args) {
     moment.locale('en');
-    const prefix = this.client.commandHandler.prefix;
-    if (!args.member)
-      return message.channel.send(
-        new MessageEmbed({
-          color: 'RED',
-          description: `\`\`\`\n${
-            prefix + this.id
-          } <member> [reason]\n     ^^^^^^^^\nmember is a required argument that is missing.\n\nKeep in mind users that are not in the server can not be banned, yet.\`\`\``,
-        })
-      );
 
     if (!args.reason) args.reason = 'None Provided';
     if (args.reason.length > 1024) reason = reason.slice(0, 1021) + '...';
 
-    if (
-      args.member.roles.highest.position >=
-      message.member.roles.highest.position
-    )
-      return message.channel.send(
-        new MessageEmbed({
-          color: 'RED',
-          description: `No.`,
-        })
-      );
+    const member = await global.guild.members.cache.get(args.member);
+    if (member)
+      if (
+        member.roles.highest.position >= message.member.roles.highest.position
+      )
+        return message.channel.send(
+          new MessageEmbed({
+            color: 'RED',
+            description: `No.`,
+          })
+        );
 
-    await args.member.ban({ reason: args.reason }).then(() => {
-      message.channel.send(
-        new MessageEmbed({
-          color: 'GREEN',
-          description: `Banned **${args.member.tag}**.`,
-          footer: { text: `ID: ${args.member.id}` },
-        })
-      );
-    });
+    await global.guild.members
+      .ban(args.member, { reason: args.reason })
+      .then((user) =>
+        message.channel.send(
+          new MessageEmbed({
+            color: 'BLUE',
+            description: `Banned ${user.tag || user.id || user}.`,
+          })
+        )
+      )
+      .catch(async (e) => {
+        await message.channel.send(
+          new MessageEmbed({ color: 'RED', description: 'Where user?' })
+        );
+      });
   }
 }
 

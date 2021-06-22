@@ -34,7 +34,7 @@ const regions = {
 class ServerInfoCommand extends Command {
   constructor() {
     super('serverinfo', {
-      aliases: ['serverinfo'],
+      aliases: ['serverinfo', 'sinfo'],
       ownerOnly: false,
       category: 'Information',
       channel: 'guild',
