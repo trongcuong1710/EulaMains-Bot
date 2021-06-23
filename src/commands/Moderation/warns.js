@@ -61,7 +61,7 @@ class WarnsCommand extends Command {
         return await message.channel.send(
           new Discord.MessageEmbed({
             color: 'GREEN',
-            description: `k!removewarns ${args.member} ${w.map(
+            description: `.removewarn ${args.member} ${w.map(
               (x) => x.warnID
             )} to remove a warning.`,
             fields: [
