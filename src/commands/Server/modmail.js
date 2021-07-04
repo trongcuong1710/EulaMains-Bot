@@ -1,5 +1,5 @@
 const { Command } = require('discord-akairo');
-const { MessageEmbed } = require('discord.js');
+const { MessageEmbed, MessageAttachment } = require('discord.js');
 const moment = require('moment');
 const channels = require('../../Constants/channels.json');
 const roles = require('../../Constants/roles.json');
