@@ -44,35 +44,24 @@ class UnmuteCommand extends Command {
         })
       );
 
-    if (args.member.roles.cache.has(muteRole.id)) {
-      await args.member.roles.remove(muteRole).then(async () => {
-        await this.client.db.eulaMutes.deleteOne({
-          member_id: args.member.id,
-        });
-        await message.channel.send(
-          new MessageEmbed({
-            color: 'GREEN',
-            description: `**${args.member}** has now been unmuted.`,
-          })
-        );
-        await this.client.channels.cache
-          .get(channels.punishmentLogsChannel)
-          .send(
-            new MessageEmbed({
-              color: 'GREEN',
-              title: `Unmuted`,
-              description: `**${args.member}** has been unmuted.`,
-            })
-          );
+    await args.member.roles.remove(muteRole).then(async () => {
+      await this.client.db.eulaMutes.deleteOne({
+        member_id: args.member.id,
       });
-    } else {
-      return message.channel.send(
+      await message.channel.send(
         new MessageEmbed({
-          color: 'RED',
-          description: `${args.member} is not muted.`,
+          color: 'GREEN',
+          description: `**${args.member}** has now been unmuted.`,
         })
       );
-    }
+      await this.client.channels.cache.get(channels.punishmentLogsChannel).send(
+        new MessageEmbed({
+          color: 'GREEN',
+          title: `Unmuted`,
+          description: `**${args.member}** has been unmuted.`,
+        })
+      );
+    });
   }
 }
 

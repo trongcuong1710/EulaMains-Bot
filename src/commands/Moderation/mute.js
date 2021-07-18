@@ -106,7 +106,7 @@ class MuteCommand extends Command {
         new Discord.MessageEmbed({
           color: 'GREEN',
           description: `**${message.author.tag}** muted **${
-            args.member.tag
+            args.member.user.tag
           }** ${
             duration
               ? `for ${prettyMilliseconds(duration, { verbose: true })}`
