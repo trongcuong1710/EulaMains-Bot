@@ -1,5 +1,6 @@
 const { Command } = require('discord-akairo');
 const Discord = require('discord.js');
+const { arg } = require('mathjs');
 const moment = require('moment');
 const channels = require('../../Constants/channels.json');
 
@@ -66,7 +67,7 @@ class RoleCommand extends Command {
 
     const member = await global.guild.members.cache.get(args.member);
     if (member)
-      if (member.roles.highest.position >= args.role.position)
+      if (args.role.position >= member.roles.highest.position)
         return message.channel.send(
           new MessageEmbed({
             color: 'RED',
