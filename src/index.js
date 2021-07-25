@@ -23,7 +23,7 @@ class MyClient extends AkairoClient {
             name: `Happy Birthday Zyla!`,
             type: 'PLAYING',
           },
-          status: 'idle',
+          status: 'online',
           afk: false,
         },
       }
