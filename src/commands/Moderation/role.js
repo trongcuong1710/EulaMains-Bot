@@ -64,6 +64,18 @@ class RoleCommand extends Command {
         })
       );
 
+    const member = await global.guild.members.cache.get(args.member);
+    if (member)
+      if (
+        member.roles.highest.position >= message.member.roles.highest.position
+      )
+        return message.channel.send(
+          new MessageEmbed({
+            color: 'RED',
+            description: `No.`,
+          })
+        );
+
     if (!args.member.roles.cache.has(args.role.id)) {
       await args.member.roles.add(args.role.id).then(() => {
         message.channel.send(
