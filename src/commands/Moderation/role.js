@@ -66,9 +66,7 @@ class RoleCommand extends Command {
 
     const member = await global.guild.members.cache.get(args.member);
     if (member)
-      if (
-        member.roles.highest.position >= message.member.roles.highest.position
-      )
+      if (member.roles.highest.position >= args.role.position)
         return message.channel.send(
           new MessageEmbed({
             color: 'RED',
