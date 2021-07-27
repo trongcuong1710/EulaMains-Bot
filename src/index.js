@@ -20,7 +20,7 @@ class MyClient extends AkairoClient {
         partials: ['CHANNEL', 'GUILD_MEMBER', 'MESSAGE', 'REACTION', 'USER'],
         presence: {
           activity: {
-            name: `Happy Birthday Zyla!`,
+            name: `Happy Birthday Oomfie!`,
             type: 'PLAYING',
           },
           status: 'online',
