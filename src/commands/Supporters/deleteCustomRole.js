@@ -9,9 +9,8 @@ class DeleteCustomRoleCommand extends Command {
       category: 'Moderation',
       channel: 'guild',
       description: {
-        description:
-          'Create a custom role for yourself if you are a patreon booster.',
-        usage: 'myrole <role name>',
+        description: "Delete a member's custom role.",
+        usage: 'delcusrole <member>',
       },
       args: [
         {
