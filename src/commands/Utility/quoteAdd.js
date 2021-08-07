@@ -45,7 +45,7 @@ class AddQuoteCommand extends Command {
     const roles = [
       '821556056282103819', // 500's owner role
       '808507839382552598', // Admin
-      // '808515071772459018', // Mod
+      '837929432425431090', // Head Mod
       '830270184479522857', // Zyla
     ];
     var i;

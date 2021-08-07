@@ -20,10 +20,10 @@ class MyClient extends AkairoClient {
         partials: ['CHANNEL', 'GUILD_MEMBER', 'MESSAGE', 'REACTION', 'USER'],
         presence: {
           activity: {
-            name: `Zyla die inside.`,
+            name: `Zyla drown in my code lol.`,
             type: 'WATCHING',
           },
-          status: 'online',
+          status: 'idle',
           afk: false,
         },
       }
@@ -129,6 +129,14 @@ class MyClient extends AkairoClient {
           unmuteDate: Number,
         }),
         'eulaMutes'
+      ),
+      eulaPoints: mongoose.model(
+        'eulaPoints',
+        new mongoose.Schema({
+          member_id: String,
+          points: Number,
+        }),
+        'eulaPoints'
       ),
     };
   }
