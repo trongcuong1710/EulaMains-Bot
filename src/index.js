@@ -20,10 +20,10 @@ class MyClient extends AkairoClient {
         partials: ['CHANNEL', 'GUILD_MEMBER', 'MESSAGE', 'REACTION', 'USER'],
         presence: {
           activity: {
-            name: `Zyla drown in my code lol.`,
-            type: 'WATCHING',
+            name: `in for vengeance!`,
+            type: 'COMPETING',
           },
-          status: 'idle',
+          status: 'dnd',
           afk: false,
         },
       }
