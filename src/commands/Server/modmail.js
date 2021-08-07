@@ -99,7 +99,7 @@ class ModmailCommand extends Command {
               );
               await channel
                 .send(
-                  //`Attention, ${admins} and ${mods}!`,
+                  `Attention, ${admins} and ${mods}!`,
                   new MessageEmbed({
                     color: 'BLUE',
                     description: `**${
