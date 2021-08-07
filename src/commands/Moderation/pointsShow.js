@@ -8,8 +8,6 @@ class ShowPointsCommand extends Command {
       ownerOnly: false,
       category: 'Moderation',
       channel: 'guild',
-      userPermissions: 'ADMINISTRATOR',
-      clientPermissions: 'ADMINISTRATOR',
       args: [
         {
           id: 'member',
