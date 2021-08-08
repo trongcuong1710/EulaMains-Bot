@@ -82,6 +82,7 @@ class ModmailCommand extends Command {
               ],
             })
             .then(async (channel) => {
+              channel.setTopic(reasoning, 'Modmail Reason');
               await this.client.db.eulaModmail.create({
                 member_id: message.author.id,
                 channel_id: channel.id,
@@ -97,23 +98,19 @@ class ModmailCommand extends Command {
                   },
                 })
               );
-              await channel
-                .send(
-                  `Attention, ${admins} and ${mods}!`,
-                  new MessageEmbed({
-                    color: 'BLUE',
-                    description: `**${
-                      message.author.tag ||
-                      message.author.user.username ||
-                      message.author
-                    }-(${
-                      message.author.id
-                    })** has created a ticket.\nTheir reason for it is: **${reasoning}**.`,
-                  })
-                )
-                .then(async (m) => {
-                  m.delete({ timeout: 60000 });
-                });
+              await channel.send(
+                `Attention, ${admins} and ${mods}!`,
+                new MessageEmbed({
+                  color: 'BLUE',
+                  description: `**${
+                    message.author.tag ||
+                    message.author.user.username ||
+                    message.author
+                  }-(${
+                    message.author.id
+                  })** has created a ticket.\nTheir reason for it is: **${reasoning}**.`,
+                })
+              );
 
               const filter = (m) => m.content;
               const collector = channel.createMessageCollector(filter);
