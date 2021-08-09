@@ -53,7 +53,7 @@ class BanCommand extends Command {
         message.channel.send(
           new MessageEmbed({
             color: 'BLUE',
-            description: `Banned ${user.tag || user.id || user}.`,
+            description: `Banned ${user.tag || user || user.id}.`,
           })
         )
       )
