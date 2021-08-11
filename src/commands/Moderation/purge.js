@@ -22,14 +22,11 @@ class PurgeCommand extends Command {
   }
 
   async exec(message, args) {
-    const prefix = this.client.commandHandler.prefix;
     if (!args.amount)
       return message.channel.send(
         new MessageEmbed({
           color: 'RED',
-          description: `\`\`\`\n${
-            prefix + this.id
-          } <amount>\n       ^^^^^^^^\namount is a required argument that is missing.\`\`\``,
+          description: `Please specify amount.`,
         })
       );
 

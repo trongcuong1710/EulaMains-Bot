@@ -63,28 +63,16 @@ class WarnsCommand extends Command {
             color: 'GREEN',
             description: `.removewarn ${args.member} ${w.map(
               (x) => x.warnID
-            )} to remove a warning.`,
+            )} to remove a warning.\n\n**Warn ID**: ${w.map(
+              (x) => x.warnID
+            )}\n**Responsible Staff**: ${w.map(
+              (x) => x.warnedStaff
+            )}\n**Reason**: ${w
+              .map((x) => x.reason)
+              .join('\n')}\n**Date**: ${w.map((x) =>
+              moment(x.when).format('LLLL')
+            )}`,
             fields: [
-              {
-                name: 'Warn ID',
-                value: w.map((x) => x.warnID),
-                inline: true,
-              },
-              {
-                name: 'Moderator',
-                value: w.map((x) => x.warnedStaff),
-                inline: true,
-              },
-              {
-                name: 'Reason',
-                value: w.map((x) => x.reason).join('\n'),
-                inline: false,
-              },
-              {
-                name: 'Warned At',
-                value: w.map((x) => moment(x.when).format('LLLL')),
-                inline: true,
-              },
               {
                 name: `Remove`,
                 value: `${this.client.commandHandler.prefix}removewarn ${
@@ -125,9 +113,7 @@ class WarnsCommand extends Command {
       return message.channel.send(
         new Discord.MessageEmbed({
           color: 'RED',
-          description: `\`\`\`\n${
-            prefix + this.id
-          } <member> <warnID>\n       ^^^^^^^^\nmember is a required argument that is missing.\`\`\``,
+          description: `Please specify a member.`,
         })
       );
     const warns = await this.client.db.eulaWarns.find({

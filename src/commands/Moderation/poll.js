@@ -39,9 +39,7 @@ class PollCommand extends Command {
       return message.channel.send(
         new MessageEmbed({
           color: 'RED',
-          description: `\`\`\`\n${
-            prefix + this.id
-          } <question>\n      ^^^^^^^^^^\nquestion is a required argument that is missing.\`\`\``,
+          description: `Poll for what?`,
         })
       );
 

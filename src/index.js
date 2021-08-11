@@ -130,14 +130,6 @@ class MyClient extends AkairoClient {
         }),
         'eulaMutes'
       ),
-      eulaPoints: mongoose.model(
-        'eulaPoints',
-        new mongoose.Schema({
-          member_id: String,
-          points: Number,
-        }),
-        'eulaPoints'
-      ),
     };
   }
 }

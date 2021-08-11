@@ -49,17 +49,20 @@ class BanCommand extends Command {
 
     await global.guild.members
       .ban(args.member, { reason: args.reason })
-      .then((user) =>
+      .then((user) => {
         message.channel.send(
           new MessageEmbed({
             color: 'BLUE',
             description: `Banned ${user.tag || user || user.id}.`,
           })
-        )
-      )
+        );
+      })
       .catch(async (e) => {
         await message.channel.send(
-          new MessageEmbed({ color: 'RED', description: 'Where user?' })
+          new MessageEmbed({
+            color: 'RED',
+            description: 'Please specify a member.',
+          })
         );
       });
   }

@@ -47,13 +47,13 @@ class WarnCommand extends Command {
           } <member> [reason]\n      ^^^^^^^^\nmember is a required argument that is missing.\`\`\``,
         })
       );
-    if (args.member.id === message.member.id)
-      return message.channel.send(
-        new MessageEmbed({
-          color: 'RED',
-          description: `You can't warn yourself!`,
-        })
-      );
+    // if (args.member.id === message.member.id)
+    //   return message.channel.send(
+    //     new MessageEmbed({
+    //       color: 'RED',
+    //       description: `You can't warn yourself!`,
+    //     })
+    //   );
     if (args.member === message.guild.me)
       return message.channel.send(
         new MessageEmbed({
@@ -61,19 +61,25 @@ class WarnCommand extends Command {
           description: `You can't warn me!`,
         })
       );
-    if (
-      args.member.roles.highest.position >=
-      message.member.roles.highest.position
-    )
+    // if (
+    //   args.member.roles.highest.position >=
+    //   message.member.roles.highest.position
+    // )
+    //   return message.channel.send(
+    //     new MessageEmbed({
+    //       color: 'RED',
+    //       description: `You can't warn someone with an equal or higher role!`,
+    //     })
+    //   );
+
+    let reason = args.reason;
+    if (!args.reason)
       return message.channel.send(
         new MessageEmbed({
           color: 'RED',
-          description: `You can't warn someone with an equal or higher role!`,
+          description: `Please specify a reason.`,
         })
       );
-
-    let reason = args.reason;
-    if (!args.reason) reason = `No Reason Provided.`;
 
     const permRoles = [
       '821556056282103819', // 500's owner role
@@ -141,6 +147,20 @@ class WarnCommand extends Command {
                   timestamp: new Date(),
                 })
               );
+          });
+        args.member
+          .send(
+            new MessageEmbed({
+              color: 'RED',
+              title: `You have been warned in ${global.guild.name}.`,
+              description: `**Responsible Staff**: ${
+                message.author.tag || message.author.username || message.author
+              }\n**Reason**: ${reason}`,
+              timestamp: new Date(),
+            })
+          )
+          .catch((_) => {
+            return;
           });
       });
   }

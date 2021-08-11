@@ -44,14 +44,11 @@ class RoleCommand extends Command {
 
   async exec(message, args) {
     moment.locale('en');
-    const prefix = this.client.commandHandler.prefix;
     if (!args.member)
       return message.channel.send(
         new Discord.MessageEmbed({
           color: 'RED',
-          description: `\`\`\`\n${
-            prefix + this.id
-          } <member> <role>\n      ^^^^^^^^\nmember is a required argument that is missing.\`\`\``,
+          description: `Please specify a member.`,
         })
       );
 
@@ -59,9 +56,7 @@ class RoleCommand extends Command {
       return message.channel.send(
         new Discord.MessageEmbed({
           color: 'RED',
-          description: `\`\`\`\n${
-            prefix + this.id
-          } <member> <role>\n               ^^^^^^\nrole is a required argument that is missing.\`\`\``,
+          description: `Please specify a role.`,
         })
       );
 

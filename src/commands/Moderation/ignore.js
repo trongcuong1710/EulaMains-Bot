@@ -32,14 +32,11 @@ class IgnoreCommand extends Command {
 
   async exec(message, args) {
     moment.locale('en');
-    const prefix = this.client.commandHandler.prefix;
     if (!args.member)
       return message.channel.send(
         new Discord.MessageEmbed({
           color: 'RED',
-          description: `\`\`\`\n${
-            prefix + this.id
-          } <member>\n        ^^^^^^^^\nmember is a required argument that is missing.\`\`\``,
+          description: `Please specify a member.`,
         })
       );
     if (
@@ -68,6 +65,20 @@ class IgnoreCommand extends Command {
               description: `${args.member.user.tag}'s DMs are now ignored.`,
             })
           );
+          args.member
+            .send(
+              new Discord.MessageEmbed({
+                color: 'RED',
+                description: `Your DMs are now ignored by Eula bot, meaning you can not create tickets anymore until unignored.\n**Responsible Staff**: ${
+                  message.author.tag ||
+                  message.author.username ||
+                  message.author
+                }`,
+              })
+            )
+            .catch((_) => {
+              return;
+            });
         });
     } else
       return await this.client.db.eulaIgnoreList
@@ -90,6 +101,20 @@ class IgnoreCommand extends Command {
               description: `${args.member.user.tag}'s DMs are not ignored anymore.`,
             })
           );
+          args.member
+            .send(
+              new Discord.MessageEmbed({
+                color: 'RED',
+                description: `Your DMs are not ignored by Eula bot anymore, meaning you can create tickets now.\n**Responsible Staff**: ${
+                  message.author.tag ||
+                  message.author.username ||
+                  message.author
+                }`,
+              })
+            )
+            .catch((_) => {
+              return;
+            });
         });
   }
 }

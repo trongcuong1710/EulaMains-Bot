@@ -33,14 +33,11 @@ class UnmuteCommand extends Command {
 
   async exec(message, args) {
     const muteRole = message.guild.roles.cache.get(roles.muteRole);
-    const prefix = this.client.commandHandler.prefix;
     if (!args.member)
       return message.channel.send(
         new MessageEmbed({
           color: 'RED',
-          description: `\`\`\`\n${
-            prefix + this.id
-          } <member>\n        ^^^^^^^^\nmember is a required argument that is missing.\`\`\``,
+          description: `Please specify a member.`,
         })
       );
 
@@ -61,6 +58,20 @@ class UnmuteCommand extends Command {
           description: `**${args.member}** has been unmuted.`,
         })
       );
+      args.member
+        .send(
+          new MessageEmbed({
+            color: 'GREEN',
+            title: `You have been unmuted in ${global.guild.name}.`,
+            description: `\n**Responsible Staff**: ${
+              message.author.tag || message.author.username || message.author
+            }`,
+            timestamp: new Date(),
+          })
+        )
+        .catch((_) => {
+          return;
+        });
     });
   }
 }

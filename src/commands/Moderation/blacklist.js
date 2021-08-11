@@ -52,15 +52,11 @@ class BlacklistCommand extends Command {
         );
     }
 
-    const prefix = this.client.commandHandler.prefix;
-
     if (!args.channel)
       return message.channel.send(
         new Discord.MessageEmbed({
           color: 'RED',
-          description: `\`\`\`\n${
-            prefix + this.id
-          } <channel>\n           ^^^^^^^^^\nchannel is a required argument that is missing.\`\`\``,
+          description: `Please specify a channel.`,
         })
       );
 

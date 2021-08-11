@@ -36,23 +36,18 @@ class RemoveWarnCommand extends Command {
 
   async exec(message, args) {
     moment.locale('en');
-    const prefix = this.client.commandHandler.prefix;
     if (!args.member)
       return message.channel.send(
         new MessageEmbed({
           color: 'RED',
-          description: `\`\`\`\n${
-            prefix + this.id
-          } <member> <warnID>\n            ^^^^^^^^\nmember is a required argument that is missing.\`\`\``,
+          description: `Please specify a member.`,
         })
       );
     if (!args.warnID)
       return message.channel.send(
         new MessageEmbed({
           color: 'RED',
-          description: `\`\`\`\n${
-            prefix + this.id
-          } <member> <warnID>\n                     ^^^^^^^^\nwarnID is a required argument that is missing.\`\`\``,
+          description: `Please specify a warnID.`,
         })
       );
 
@@ -106,6 +101,22 @@ class RemoveWarnCommand extends Command {
               timestamp: new Date(),
             })
           );
+        args.member
+          .send(
+            new MessageEmbed({
+              color: 'RED',
+              title: `A warn has been removed you in ${global.guild.name}.`,
+              description: `**Responsible Staff**: ${
+                message.author.tag || message.author.username || message.author
+              }\n**Reason was**: ${warnReasonWas
+                .map((x) => x.reason)
+                .join('\n')}`,
+              timestamp: new Date(),
+            })
+          )
+          .catch((_) => {
+            return;
+          });
       });
   }
 }

@@ -26,14 +26,11 @@ class UnbanCommand extends Command {
 
   async exec(message, args) {
     moment.locale('en');
-    const prefix = this.client.commandHandler.prefix;
     if (!args.user)
       return message.channel.send(
         new MessageEmbed({
           color: 'RED',
-          description: `\`\`\`\n${
-            prefix + this.id
-          } <user> [reason]\n       ^^^^^^\nuser is a required argument that is missing.\`\`\``,
+          description: `Please specify a user.`,
         })
       );
 
