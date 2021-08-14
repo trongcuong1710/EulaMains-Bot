@@ -1,6 +1,6 @@
 {
   "name": "eula-mains-bot",
-  "version": "0.2.77",
+  "version": "0.2.80",
   "description": "",
   "main": "main.js",
   "dependencies": {

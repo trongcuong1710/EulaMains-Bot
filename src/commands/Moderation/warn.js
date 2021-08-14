@@ -47,13 +47,13 @@ class WarnCommand extends Command {
           } <member> [reason]\n      ^^^^^^^^\nmember is a required argument that is missing.\`\`\``,
         })
       );
-    // if (args.member.id === message.member.id)
-    //   return message.channel.send(
-    //     new MessageEmbed({
-    //       color: 'RED',
-    //       description: `You can't warn yourself!`,
-    //     })
-    //   );
+    if (args.member.id === message.member.id)
+      return message.channel.send(
+        new MessageEmbed({
+          color: 'RED',
+          description: `You can't warn yourself!`,
+        })
+      );
     if (args.member === message.guild.me)
       return message.channel.send(
         new MessageEmbed({
@@ -61,16 +61,16 @@ class WarnCommand extends Command {
           description: `You can't warn me!`,
         })
       );
-    // if (
-    //   args.member.roles.highest.position >=
-    //   message.member.roles.highest.position
-    // )
-    //   return message.channel.send(
-    //     new MessageEmbed({
-    //       color: 'RED',
-    //       description: `You can't warn someone with an equal or higher role!`,
-    //     })
-    //   );
+    if (
+      args.member.roles.highest.position >=
+      message.member.roles.highest.position
+    )
+      return message.channel.send(
+        new MessageEmbed({
+          color: 'RED',
+          description: `You can't warn someone with an equal or higher role!`,
+        })
+      );
 
     let reason = args.reason;
     if (!args.reason)
