@@ -20,8 +20,8 @@ class MyClient extends AkairoClient {
         partials: ['CHANNEL', 'GUILD_MEMBER', 'MESSAGE', 'REACTION', 'USER'],
         presence: {
           activity: {
-            name: `in for vengeance!`,
-            type: 'COMPETING',
+            name: `DM .ticket to contact staff!`,
+            type: 'PLAYING',
           },
           status: 'dnd',
           afk: false,
