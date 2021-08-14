@@ -17,10 +17,10 @@ class MyClient extends AkairoClient {
       {
         disableMentions: 'everyone',
         fetchAllMembers: true,
-        partials: ['CHANNEL', 'GUILD_MEMBER', 'MESSAGE', 'REACTION', 'USER'],
+        partials: ['CHANNEL', 'MESSAGE', 'REACTION'],
         presence: {
           activity: {
-            name: `DM .ticket to contact staff!`,
+            name: `DM .ticket for help!`,
             type: 'PLAYING',
           },
           status: 'dnd',
