@@ -15,7 +15,7 @@ class MyClient extends AkairoClient {
         ownerID: '488699894023061516',
       },
       {
-        disableMentions: 'everyone',
+        disableMentions: 'none',
         fetchAllMembers: true,
         partials: ['CHANNEL', 'MESSAGE', 'REACTION'],
         presence: {
