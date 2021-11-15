@@ -39,12 +39,6 @@ class MessageListener extends Listener {
       if (hasTicket) return;
       if (fetchedMember) return;
       if (message.content == '.ticket') return;
-      if (
-        await this.client.db.eulaModmail.findOne({
-          member_id: message.author.id,
-        })
-      )
-        return;
     }
     //? Modmail
     //#region Modmail
